@@ -22,7 +22,7 @@ namespace MVVM_DAL.Models
 
 
         // Nav
+        public Recipe Recipe { get; set; }
         public Meal Meal { get; set; }
-        public MealIngredient MealIngredient { get; set; }
     }
 }

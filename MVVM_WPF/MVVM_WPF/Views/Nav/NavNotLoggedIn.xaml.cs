@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MVVM_WPF.Views
+namespace MVVM_WPF.Views.Nav
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for NavLoggedIn.xaml
     /// </summary>
-    public partial class MainView : Window
+    public partial class NavNotLoggedIn : UserControl
     {
-        public MainView()
+        public NavNotLoggedIn()
         {
             InitializeComponent();
         }

@@ -1,15 +1,46 @@
-﻿using System;
+﻿using MVVM_WPF.Commands;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MVVM_WPF.ViewModels
 {
-    public class MainViewModel : BasisViewModel, INotifyPropertyChanged
+    public class MainViewModel : BasisViewModel
     {
+        private BasisViewModel _selectedViewModel;
+        public BasisViewModel SelectedViewModel
+        {
+            get { return _selectedViewModel; }
+            set
+            {
+                _selectedViewModel = value;
+                NotifyPropertyChanged(nameof(SelectedViewModel));
+            }
+        }
+        private BasisViewModel _selectedNavViewModel;
+        public BasisViewModel SelectedNavViewModel
+        {
+            get { return _selectedNavViewModel; }
+            set
+            {
+                _selectedNavViewModel = value;
+                NotifyPropertyChanged(nameof(SelectedNavViewModel));
+            }
+        }
+
+
+        public MainViewModel()
+        {
+            SelectedViewModel = new AccountViewModel(this);
+            SelectedNavViewModel = new NavNotLoggedInViewModel(this);
+            UpdateViewCommand = new UpdateViewCommand(this);
+            App.Current.Properties["GlobalUserID"] = -1;
+        }
         public override string this[string columnName]
         {
             get

@@ -11,7 +11,8 @@ namespace MVVM_WPF.ViewModels
 {
     public abstract class BasisViewModel : IDataErrorInfo, INotifyPropertyChanged, ICommand
     {
-        #region ICommand
+        public ICommand UpdateViewCommand { get; set; }
+
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
@@ -22,18 +23,13 @@ namespace MVVM_WPF.ViewModels
 
         public abstract void Execute(object parameter);
 
-        #endregion
-
-        #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void NotifyPropertyChanged([CallerMemberName] string propertyname = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
-        #endregion
 
-        #region IDataErrorInfo
         public abstract string this[string columnName] { get; }
         public string Error
         {
@@ -56,13 +52,10 @@ namespace MVVM_WPF.ViewModels
                 return foutmeldingen;
             }
         }
-        #endregion
 
-        #region HulpMethodes
         public bool IsGeldig()
         {
             return string.IsNullOrWhiteSpace(Error);
         }
-        #endregion
     }
 }

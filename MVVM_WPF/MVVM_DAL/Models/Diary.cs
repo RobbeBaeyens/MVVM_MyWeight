@@ -19,7 +19,6 @@ namespace MVVM_DAL.Models
 
         // Attributes
         [Required]
-        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
         // Nav

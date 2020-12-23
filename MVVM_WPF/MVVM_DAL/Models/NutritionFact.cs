@@ -12,7 +12,7 @@ namespace MVVM_DAL.Models
     public class NutritionFact
     {
         // PK
-        public int NuritionFactID { get; set; }
+        public int NutritionFactID { get; set; }
 
         // FK
 

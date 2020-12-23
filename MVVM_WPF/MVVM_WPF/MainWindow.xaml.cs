@@ -1,4 +1,5 @@
-﻿using MVVM_WPF.ViewModels;
+﻿using MVVM_WPF.Commands;
+using MVVM_WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +14,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MVVM_WPF.Views
+namespace MVVM_WPF
 {
     /// <summary>
-    /// Interaction logic for MainView.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class Diary : UserControl
+    public partial class MainWindow : Window
     {
-        public Diary()
+        public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new MainViewModel();
         }
     }
 }

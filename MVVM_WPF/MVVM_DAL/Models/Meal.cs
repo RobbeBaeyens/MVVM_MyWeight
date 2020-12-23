@@ -24,7 +24,7 @@ namespace MVVM_DAL.Models
 
         // Nav
         public ICollection<DiaryTimeStampMeal> DiaryTimeStampMeals { get; set; }
-        public MealIngredient MealIngredient { get; set; }
-        public MealRecipe MealRecipe { get; set; }
+        public ICollection<MealIngredient> MealIngredients { get; set; }
+        public ICollection<MealRecipe> MealRecipes { get; set; }
     }
 }

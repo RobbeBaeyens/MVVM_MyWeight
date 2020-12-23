@@ -1,21 +1,59 @@
-﻿using System;
+﻿using MVVM_DAL.Data;
+using MVVM_DAL.Data.UnitOfWork;
+using MVVM_DAL.Models;
+using MVVM_WPF.Commands;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace MVVM_WPF.ViewModels
 {
-    public class LoginViewModel : BasisViewModel, INotifyPropertyChanged
+    public class LoginViewModel : BasisViewModel
     {
+        #region Properties
+        IUnitOfWork unitOfWork = new UnitOfWork(new MyWeightEntities());
+        public User user { get; set; }
+        public List<User> users { get; set; }
+
+        private string userName = "";
+        public string UserName
+        {
+            get { return this.userName; }
+            set
+            {
+                if (!string.Equals(this.userName, value))
+                {
+                    this.userName = value;
+                    this.NotifyPropertyChanged(this.userName);
+                }
+            }
+        }
+        private string password = "";
+        public string Password
+        {
+            get { return this.password; }
+            set
+            {
+                if (!string.Equals(this.password, value))
+                {
+                    this.password = value;
+                    this.NotifyPropertyChanged(this.password);
+                }
+            }
+        }
         public override string this[string columnName]
         {
             get
             {
                 return "";
             }
+        }
+        #endregion
+
+        public LoginViewModel(MainViewModel viewModel)
+        {
+            UpdateViewCommand = new UpdateViewCommand(viewModel);
+            users = unitOfWork.UserRepo.Ophalen().ToList();
         }
 
         public override bool CanExecute(object parameter)
@@ -27,38 +65,43 @@ namespace MVVM_WPF.ViewModels
         {
             switch (parameter.ToString())
             {
-                case "Exit":
-                    Environment.Exit(0);
-                    break;
-                case "Maximize":
-                    if(GetWindowState() == WindowState.Maximized)
+                case "Login":
+                    Console.WriteLine("Clicked login!");
+                    if (!String.IsNullOrWhiteSpace(this.UserName) && !String.IsNullOrWhiteSpace(this.Password))
                     {
-                        ChangeWindowState(WindowState.Normal);
-                    } else
+                        foreach(User user in users)
+                        {
+                            if(this.UserName == user.Username)
+                            {
+                                if(this.Password == user.Password)
+                                {
+                                    App.Current.Properties["GlobalUserID"] = user.UserID;
+                                    UpdateViewCommand.Execute("AccountDetails");
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("Incorrect wachtwoord!");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Gebruiker bestaat niet!");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                        }
+                    }
+                    else
                     {
-                        ChangeWindowState(WindowState.Maximized);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Alle velden invullen!");
+                        Console.WriteLine($"{this.UserName}, {this.Password.Length > 0}");
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
                     break;
-                case "Minimize":
-                    ChangeWindowState(WindowState.Minimized);
-                    break;
             }
-        }
-
-        private void ChangeWindowState(WindowState state)
-        {
-            Window window = (Window)Application.Current.Windows.OfType
-            <System.Windows.Window>().SingleOrDefault(x => x.IsActive);
-
-            window.WindowState = state;
-        }
-
-        private WindowState GetWindowState()
-        {
-            Window window = (Window)Application.Current.Windows.OfType
-            <System.Windows.Window>().SingleOrDefault(x => x.IsActive);
-
-            return window.WindowState;
         }
     }
 }

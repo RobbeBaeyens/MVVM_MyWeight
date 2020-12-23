@@ -10,12 +10,12 @@ namespace MVVM_DAL.Data
 {
     public class MyWeightEntities : DbContext
     {
-        public  MyWeightEntities(): base("MyWeightAdministratie")
+        public  MyWeightEntities(): base("name=MyWeightDB")
         {
 
         }
 
-        public DbSet<Diary> Diaries { get; set; }
+        public DbSet<Diary> Diarys { get; set; }
         public DbSet<DiaryTimeStamp> DiaryTimeStamps { get; set; }
         public DbSet<DiaryTimeStampMeal> DiaryTimeStampMeals { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }

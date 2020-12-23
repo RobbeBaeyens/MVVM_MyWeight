@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="MVVM_WPF.Views.AccountDetails"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVM_WPF.Views"
+        mc:Ignorable="d" MinHeight="490" d:DesignWidth="800" Background="{StaticResource Secondary}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label HorizontalAlignment="Left" Grid.Row="0" FontSize="40" FontWeight="Bold" Foreground="#666" Content="{Binding Username}"/>
+        <Button HorizontalAlignment="Right" Grid.Row="0" Style="{StaticResource BlueButton}" Background="Red" Width="100" Height="45" FontSize="20" Command="{Binding}" CommandParameter="Logout">Logout</Button>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="160"/>
+            </Grid.RowDefinitions>
+            <ProgressBar Grid.Row="0" Height="20" Width="500" Background="White" Foreground="{StaticResource Primary}" Minimum="{Binding Weight1}" Maximum="{Binding Weight2}" Value="{Binding CurrentWeight}"/>
+            <DockPanel VerticalAlignment="Center" Grid.Row="1" Width="545">
+                <Label HorizontalAlignment="Left" Content="{Binding Weight1Kg}"/>
+                <Label HorizontalAlignment="Right" Content="{Binding Weight2Kg}"/>
+            </DockPanel>
+            <Label FontSize="16" FontWeight="Bold" Foreground="{StaticResource Primary}" Grid.Row="1" HorizontalAlignment="Center" Content="{Binding CurrentWeightKg}"/>
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="250"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Content="Lost so far:"/>
+                <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="Performance:"/>
+                <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Content="Still to go:"/>
+                <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Content="{Binding LostWeightKg}"/>
+                <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Content="{Binding Performance}"/>
+                <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Content="{Binding WeightToGoKg}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

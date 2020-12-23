@@ -17,7 +17,7 @@ namespace MVVM_WPF.Views
     /// <summary>
     /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class Register : Window
+    public partial class Register : UserControl
     {
         public Register()
         {

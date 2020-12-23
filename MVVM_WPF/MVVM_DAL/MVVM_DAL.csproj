@@ -113,6 +113,23 @@
     <Compile Include="Data\Repositories\Repository.cs" />
     <Compile Include="Data\UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Data\UnitOfWork\UnitOfWork.cs" />
+    <Compile Include="Migrations\202012181322439_InitialCreate.cs" />
+    <Compile Include="Migrations\202012181322439_InitialCreate.designer.cs">
+      <DependentUpon>202012181322439_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012190824302_AddedCurrentWeight.cs" />
+    <Compile Include="Migrations\202012190824302_AddedCurrentWeight.designer.cs">
+      <DependentUpon>202012190824302_AddedCurrentWeight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012222004450_diarytoevoegen.cs" />
+    <Compile Include="Migrations\202012222004450_diarytoevoegen.designer.cs">
+      <DependentUpon>202012222004450_diarytoevoegen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012232111084_diaries.cs" />
+    <Compile Include="Migrations\202012232111084_diaries.designer.cs">
+      <DependentUpon>202012232111084_diaries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Diary.cs" />
     <Compile Include="Models\DiaryTimeStamp.cs" />
     <Compile Include="Models\DiaryTimeStampMeal.cs" />
@@ -133,7 +150,20 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202012181322439_InitialCreate.resx">
+      <DependentUpon>202012181322439_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012190824302_AddedCurrentWeight.resx">
+      <DependentUpon>202012190824302_AddedCurrentWeight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012222004450_diarytoevoegen.resx">
+      <DependentUpon>202012222004450_diarytoevoegen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012232111084_diaries.resx">
+      <DependentUpon>202012232111084_diaries.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.3.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.3.0\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

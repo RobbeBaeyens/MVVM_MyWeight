@@ -30,6 +30,9 @@ namespace MVVM_DAL.Models
         public decimal Weight { get; set; }
 
         [Required]
+        public decimal CurrentWeight { get; set; }
+
+        [Required]
         public decimal WantedWeight { get; set; }
 
         [Required]

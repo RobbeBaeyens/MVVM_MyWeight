@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="MVVM_WPF.Views.Account"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVM_WPF.Views"
+        mc:Ignorable="d" MinHeight="490" d:DesignWidth="800" Background="{StaticResource Secondary}">
+            <Grid>
+                <Label FontSize="50" FontWeight="Bold" Foreground="#666">Login or register</Label>
+                <StackPanel VerticalAlignment="Center">
+                    <Button Style="{StaticResource BlueButton}" Command="{Binding UpdateViewCommand}" CommandParameter="Login">Login</Button>
+                    <Separator Height="10" Style="{StaticResource Spacing}"/>
+                    <Button Style="{StaticResource BlueButton}" Command="{Binding UpdateViewCommand}" CommandParameter="Register">Register</Button>
+                </StackPanel>
+            </Grid>
+</UserControl>

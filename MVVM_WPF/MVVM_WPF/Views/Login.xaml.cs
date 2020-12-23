@@ -17,7 +17,7 @@ namespace MVVM_WPF.Views
     /// <summary>
     /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class Login : Window
+    public partial class Login : UserControl
     {
         public Login()
         {

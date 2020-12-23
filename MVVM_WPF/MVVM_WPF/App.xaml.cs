@@ -1,4 +1,5 @@
-﻿using MVVM_WPF.ViewModels;
+﻿using MVVM_WPF.Commands;
+using MVVM_WPF.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,12 +15,5 @@ namespace MVVM_WPF
     /// </summary>
     public partial class App : Application
     {
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
-            DiaryViewModel viewModel = new DiaryViewModel();
-            Views.Diary view = new Views.Diary();
-            view.DataContext = viewModel;
-            view.Show();
-        }
     }
 }
