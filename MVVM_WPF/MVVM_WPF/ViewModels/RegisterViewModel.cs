@@ -124,6 +124,7 @@ namespace MVVM_WPF.ViewModels
                                 if (ok == 1)
                                 {
                                     Console.WriteLine($"Registered {user.Username} with ID: {user.UserID}");
+                                    UpdateViewCommand.Execute("Login");
                                 }
                                 else
                                 {

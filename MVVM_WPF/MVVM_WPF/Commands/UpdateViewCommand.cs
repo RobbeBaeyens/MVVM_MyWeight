@@ -23,6 +23,8 @@ namespace MVVM_WPF.Commands
         public void Execute(object parameter)
         {
             int globalUserID = int.Parse(App.Current.Properties["GlobalUserID"].ToString());
+            int globalSelectedTimestamp = int.Parse(App.Current.Properties["GlobalSelectedTimestamp"].ToString());
+            DateTime globalDiaryDate = DateTime.Parse(App.Current.Properties["GlobalDiaryDate"].ToString());
             Console.WriteLine(App.Current.Properties["GlobalUserID"]);
             switch (parameter.ToString())
             {
@@ -52,9 +54,17 @@ namespace MVVM_WPF.Commands
                     break;
                 case "Diary":
                     Console.WriteLine("Diary");
-                    viewModel.SelectedViewModel = new DiaryViewModel(viewModel, globalUserID);
+                    viewModel.SelectedViewModel = new DiaryViewModel(viewModel, globalUserID, globalDiaryDate);
                     viewModel.SelectedNavViewModel = new NavLoggedInViewModel(viewModel, 1);
                     break;
+
+                case "DiaryAddRecipes":
+                    Console.WriteLine("DiaryAddRecipes");
+                    viewModel.SelectedViewModel = new DiaryRecipesViewModel(viewModel, globalUserID, globalSelectedTimestamp, globalDiaryDate);
+                    viewModel.SelectedNavViewModel = new NavLoggedInViewModel(viewModel);
+                    break;
+
+
                 case "Logout":
                     Console.WriteLine("Logout");
                     viewModel.SelectedViewModel = new AccountViewModel(viewModel);

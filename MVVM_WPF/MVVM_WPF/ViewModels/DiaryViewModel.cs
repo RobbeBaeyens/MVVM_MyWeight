@@ -5,6 +5,7 @@ using MVVM_WPF.Commands;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,7 @@ namespace MVVM_WPF.ViewModels
             set
             {
                 _date = value;
+                App.Current.Properties["GlobalDiaryDate"] = _date;
             }
         }
 
@@ -98,7 +100,7 @@ namespace MVVM_WPF.ViewModels
             }
         }
 
-        public DiaryViewModel(MainViewModel viewModel, int userID)
+        public DiaryViewModel(MainViewModel viewModel, int userID, DateTime diaryDate)
         {
             User user = unitOfWork.UserRepo.ZoekOpPK(userID);
             List<Diary> diariesOfToday = unitOfWork.DiaryRepo.Ophalen(d => d.UserID == user.UserID && d.Date == DateTime.Today).ToList();
@@ -107,8 +109,10 @@ namespace MVVM_WPF.ViewModels
             {
                 Diary diary = new Diary() { Date = DateTime.Today, UserID = user.UserID };
                 unitOfWork.DiaryRepo.Toevoegen(diary);
+                unitOfWork.Save();
             }
 
+            Date = diaryDate;
             App.Current.Properties["GlobalUserID"] = userID;
             UpdateViewCommand = new UpdateViewCommand(viewModel);
 
@@ -167,7 +171,14 @@ namespace MVVM_WPF.ViewModels
 
         public override void Execute(object parameter)
         {
-
+            switch (parameter.ToString())
+            {
+                case "Breakfast":
+                    App.Current.Properties["GlobalSelectedTimestamp"] = 1;
+                    App.Current.Properties["GlobalDiaryDate"] = Date;
+                    UpdateViewCommand.Execute("DiaryAddRecipes");
+                    break;
+            }
         }
     }
 }

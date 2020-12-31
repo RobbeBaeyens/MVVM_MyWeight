@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:MVVM_WPF" xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
              xmlns:views="clr-namespace:MVVM_WPF.Views"
              xmlns:viewsNav="clr-namespace:MVVM_WPF.Views.Nav"
+             xmlns:viewsDiaryAdd="clr-namespace:MVVM_WPF.Views.DiaryAdd"
              xmlns:viewmodels="clr-namespace:MVVM_WPF.ViewModels"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
@@ -28,6 +29,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:NavNotLoggedInViewModel}">
             <viewsNav:NavNotLoggedIn/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DiaryRecipesViewModel}">
+            <viewsDiaryAdd:Recipes/>
         </DataTemplate>
 
         <Color x:Key="ColorPrimary">#FF0094FF</Color>
@@ -75,6 +79,26 @@
             </Setter>
         </Style>
 
+        <Style TargetType="{x:Type Button}" x:Key="WhiteButton" BasedOn="{StaticResource Hoverlessbtn}">
+            <Setter Property="Foreground" Value="{StaticResource Primary}"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontSize" Value="35"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="Height" Value="70"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Padding ="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <Style TargetType="{x:Type TextBox}" x:Key="BlueTextBox">
             <Setter Property="Foreground" Value="Black"/>
             <Setter Property="FontSize" Value="25"/>
@@ -101,6 +125,34 @@
                                 <ScrollViewer Margin="0" Width="245" x:Name="PART_ContentHost" />
                                 <Label VerticalAlignment="Center" HorizontalAlignment="Right" Content="{TemplateBinding Tag}"></Label>
                             </DockPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="SearchTextBox" BasedOn="{StaticResource BlueTextBox}">
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                        <Border  Height="50" CornerRadius="20 0 0 20" BorderBrush="{StaticResource Primary}"  BorderThickness="2" Padding="5">
+                            <DockPanel>
+                                <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="🔍"></Label>
+                                <ScrollViewer Margin="0" Width="245" x:Name="PART_ContentHost"/>
+                            </DockPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="{x:Type Button}" x:Key="SearchBlueButton" BasedOn="{StaticResource BlueButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="0 20 20 0" Padding ="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>

@@ -40,6 +40,8 @@ namespace MVVM_WPF.ViewModels
             SelectedNavViewModel = new NavNotLoggedInViewModel(this);
             UpdateViewCommand = new UpdateViewCommand(this);
             App.Current.Properties["GlobalUserID"] = -1;
+            App.Current.Properties["GlobalSelectedTimestamp"] = -1;
+            App.Current.Properties["GlobalDiaryDate"] = DateTime.Now;
         }
         public override string this[string columnName]
         {
@@ -56,39 +58,43 @@ namespace MVVM_WPF.ViewModels
 
         public override void Execute(object parameter)
         {
+            Window thisWindow = new Window();
+            WindowCollection windows = Application.Current.Windows;
+            foreach(Window window in windows)
+            {
+                if(window.Title == "MyWeight")
+                {
+                    thisWindow = window;
+                }
+            }
+
             switch (parameter.ToString())
             {
                 case "Exit":
                     Environment.Exit(0);
                     break;
                 case "Maximize":
-                    if(GetWindowState() == WindowState.Maximized)
+                    if(GetWindowState(thisWindow) == WindowState.Maximized)
                     {
-                        ChangeWindowState(WindowState.Normal);
+                        ChangeWindowState(WindowState.Normal, thisWindow);
                     } else
                     {
-                        ChangeWindowState(WindowState.Maximized);
+                        ChangeWindowState(WindowState.Maximized, thisWindow);
                     }
                     break;
                 case "Minimize":
-                    ChangeWindowState(WindowState.Minimized);
+                    ChangeWindowState(WindowState.Minimized, thisWindow);
                     break;
             }
         }
 
-        private void ChangeWindowState(WindowState state)
+        private void ChangeWindowState(WindowState state, Window window)
         {
-            Window window = (Window)Application.Current.Windows.OfType
-            <System.Windows.Window>().SingleOrDefault(x => x.IsActive);
-
             window.WindowState = state;
         }
 
-        private WindowState GetWindowState()
+        private WindowState GetWindowState(Window window)
         {
-            Window window = (Window)Application.Current.Windows.OfType
-            <System.Windows.Window>().SingleOrDefault(x => x.IsActive);
-
             return window.WindowState;
         }
     }

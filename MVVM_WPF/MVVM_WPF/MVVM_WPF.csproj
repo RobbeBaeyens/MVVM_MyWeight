@@ -82,6 +82,8 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AccountDetailsViewModel.cs" />
+    <Compile Include="ViewModels\DiaryRecipesViewModel.cs" />
+    <Compile Include="ViewModels\NewRecipeViewModel.cs" />
     <Compile Include="ViewModels\NavNotLoggedInViewModel.cs" />
     <Compile Include="ViewModels\NavLoggedInViewModel.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
@@ -95,6 +97,12 @@
     </Compile>
     <Compile Include="Views\Diary.xaml.cs">
       <DependentUpon>Diary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DiaryAdd\NewRecipe.xaml.cs">
+      <DependentUpon>NewRecipe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DiaryAdd\Recipes.xaml.cs">
+      <DependentUpon>Recipes.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Nav\NavNotLoggedIn.xaml.cs">
       <DependentUpon>NavNotLoggedIn.xaml</DependentUpon>
@@ -130,6 +138,14 @@
     <Page Include="Views\Diary.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DiaryAdd\NewRecipe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DiaryAdd\Recipes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Nav\NavNotLoggedIn.xaml">
       <Generator>MSBuild:Compile</Generator>

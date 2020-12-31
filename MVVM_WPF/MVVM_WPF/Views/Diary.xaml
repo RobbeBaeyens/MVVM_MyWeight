@@ -28,7 +28,8 @@
                         <DockPanel>
                             <Image Source="../Resources/Images/Diary-icons/Breakfast-icon.png" HorizontalAlignment="Left" Margin="5"/>
                             <Label FontSize="30" FontWeight="Bold" Foreground="#444">Breakfast</Label>
-                            <Button HorizontalAlignment="Right" Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand">
+                            <Button HorizontalAlignment="Right" Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand"
+                                    Command="{Binding}" CommandParameter="Breakfast">
                                 <Image Source="../Resources/Images/Plus.png"/>
                             </Button>
                         </DockPanel>

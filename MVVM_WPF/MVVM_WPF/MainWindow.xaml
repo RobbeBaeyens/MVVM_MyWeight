@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVM_WPF.Views"
         mc:Ignorable="d"
-        Title="MainView" Icon="/MVVM_WPF;component/Resources/Images/Weight.png" WindowStartupLocation="CenterScreen"
+        Title="MyWeight" Icon="/MVVM_WPF;component/Resources/Images/Weight.png" WindowStartupLocation="CenterScreen"
         AllowsTransparency="True" WindowStyle="None" Padding="0" MinHeight="700" MinWidth="900" Height="600" Width="800" Background="Transparent">
     <shell:WindowChrome.WindowChrome>
         <shell:WindowChrome
