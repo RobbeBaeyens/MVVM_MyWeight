@@ -40,8 +40,9 @@ namespace MVVM_WPF.ViewModels
             SelectedNavViewModel = new NavNotLoggedInViewModel(this);
             UpdateViewCommand = new UpdateViewCommand(this);
             App.Current.Properties["GlobalUserID"] = -1;
+            App.Current.Properties["GlobalDiaryID"] = -1;
             App.Current.Properties["GlobalSelectedTimestamp"] = -1;
-            App.Current.Properties["GlobalDiaryDate"] = DateTime.Now;
+            App.Current.Properties["GlobalDiaryDate"] = DateTime.Today;
         }
         public override string this[string columnName]
         {

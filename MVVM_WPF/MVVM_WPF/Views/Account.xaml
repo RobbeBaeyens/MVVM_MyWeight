@@ -6,12 +6,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVM_WPF.Views"
         mc:Ignorable="d" MinHeight="490" d:DesignWidth="800" Background="{StaticResource Secondary}">
-            <Grid>
-                <Label FontSize="50" FontWeight="Bold" Foreground="#666">Login or register</Label>
-                <StackPanel VerticalAlignment="Center">
-                    <Button Style="{StaticResource BlueButton}" Command="{Binding UpdateViewCommand}" CommandParameter="Login">Login</Button>
-                    <Separator Height="10" Style="{StaticResource Spacing}"/>
-                    <Button Style="{StaticResource BlueButton}" Command="{Binding UpdateViewCommand}" CommandParameter="Register">Register</Button>
-                </StackPanel>
-            </Grid>
+    <Grid>
+        <Label FontSize="50" FontWeight="Bold" Foreground="#666">Login or register</Label>
+        <StackPanel VerticalAlignment="Center">
+            <Button Cursor="Hand" Style="{StaticResource BlueButton}" Command="{Binding UpdateViewCommand}" CommandParameter="Login">Login</Button>
+            <Separator Height="10" Style="{StaticResource Spacing}"/>
+            <Button Cursor="Hand" Style="{StaticResource BlueButton}" Command="{Binding UpdateViewCommand}" CommandParameter="Register">Register</Button>
+        </StackPanel>
+    </Grid>
 </UserControl>

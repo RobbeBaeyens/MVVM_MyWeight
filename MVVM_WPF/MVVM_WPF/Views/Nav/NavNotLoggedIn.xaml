@@ -8,18 +8,19 @@
     <Grid>
         <Border CornerRadius="0 0 20 20" Background="{StaticResource Primary}" Grid.Row="2">
             <DockPanel HorizontalAlignment="Center">
-                <Button Command="{Binding UpdateViewCommand}" CommandParameter="AccountDetails" Width="70" Height="70" Style="{StaticResource Hoverlessbtn}" Background="{StaticResource DarkPrimary}">
+                <Button Cursor="Hand" Command="{Binding UpdateViewCommand}" CommandParameter="AccountDetails" Width="70" Height="70" Style="{StaticResource Hoverlessbtn}" Background="{StaticResource DarkPrimary}">
                     <Image Source="/Resources/Images/User.png" Width="50" Height="50" HorizontalAlignment="Center" Margin="10"/>
                 </Button>
-                <Button Width="70" Height="70" Style="{StaticResource Hoverlessbtn}">
+                <Button Cursor="No" Width="70" Height="70" Style="{StaticResource Hoverlessbtn}">
                     <Image Source="/Resources/Images/DiaryX.png" Width="50" Height="50" HorizontalAlignment="Center" Margin="10"/>
                 </Button>
-                <Button Width="70" Height="70" Style="{StaticResource Hoverlessbtn}">
+                <!--
+                <Button Cursor="No" Width="70" Height="70" Style="{StaticResource Hoverlessbtn}">
                     <Image Source="/Resources/Images/ReportsX.png" Width="50" Height="50" HorizontalAlignment="Center" Margin="10"/>
                 </Button>
-                <Button Width="70" Height="70" Style="{StaticResource Hoverlessbtn}">
+                <Button Cursor="No" Width="70" Height="70" Style="{StaticResource Hoverlessbtn}">
                     <Image Source="/Resources/Images/WeightX.png" Width="50" Height="50" HorizontalAlignment="Center" Margin="10"/>
-                </Button>
+                </Button>-->
             </DockPanel>
         </Border>
     </Grid>

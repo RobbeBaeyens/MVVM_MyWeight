@@ -7,13 +7,13 @@ namespace MVVM_DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class diarytoevoegen : IMigrationMetadata
+    public sealed partial class recipeingredient_unitnotrequired : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(diarytoevoegen));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(recipeingredient_unitnotrequired));
         
         string IMigrationMetadata.Id
         {
-            get { return "202012222004450_diarytoevoegen"; }
+            get { return "202101041909033_recipeingredient_unitnotrequired"; }
         }
         
         string IMigrationMetadata.Source

@@ -7,13 +7,13 @@ namespace MVVM_DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class AddedCurrentWeight : IMigrationMetadata
+    public sealed partial class decimalrecipeingredientamount : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedCurrentWeight));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(decimalrecipeingredientamount));
         
         string IMigrationMetadata.Id
         {
-            get { return "202012190824302_AddedCurrentWeight"; }
+            get { return "202101041552432_decimalrecipeingredientamount"; }
         }
         
         string IMigrationMetadata.Source

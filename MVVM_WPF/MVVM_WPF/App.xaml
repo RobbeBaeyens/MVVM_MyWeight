@@ -33,15 +33,22 @@
         <DataTemplate DataType="{x:Type viewmodels:DiaryRecipesViewModel}">
             <viewsDiaryAdd:Recipes/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:DiaryFoodsViewModel}">
+            <viewsDiaryAdd:Foods/>
+        </DataTemplate>
 
         <Color x:Key="ColorPrimary">#FF0094FF</Color>
         <Color x:Key="ColorDarkPrimary">#FF0064AF</Color>
         <Color x:Key="ColorRed">#FF7F0000</Color>
+        <Color x:Key="ColorGray">#FF666666</Color>
+        <Color x:Key="ColorGreen">#FF00DF00</Color>
         <Color x:Key="ColorSecondary">#F7F7F7</Color>
 
         <SolidColorBrush x:Key="Primary" Color="{StaticResource ColorPrimary}"/>
         <SolidColorBrush x:Key="DarkPrimary" Color="{StaticResource ColorDarkPrimary}"/>
         <SolidColorBrush x:Key="Red" Color="{StaticResource ColorRed}"/>
+        <SolidColorBrush x:Key="Gray" Color="{StaticResource ColorGray}"/>
+        <SolidColorBrush x:Key="Green" Color="{StaticResource ColorGreen}"/>
         <SolidColorBrush x:Key="Secondary" Color="{StaticResource ColorSecondary}"/>
 
         <Style TargetType="{x:Type Button}" x:Key="Hoverlessbtn">
@@ -123,6 +130,20 @@
                         <Border  Height="70" CornerRadius="20" BorderBrush="{StaticResource Primary}"  BorderThickness="2" Padding="5">
                             <DockPanel>
                                 <ScrollViewer Margin="0" Width="245" x:Name="PART_ContentHost" />
+                                <Label VerticalAlignment="Center" HorizontalAlignment="Right" Content="{TemplateBinding Tag}"></Label>
+                            </DockPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type TextBox}" x:Key="MINTextBox" BasedOn="{StaticResource BlueTextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                        <Border  Height="70" CornerRadius="20" BorderBrush="{StaticResource Primary}"  BorderThickness="2" Padding="5">
+                            <DockPanel>
+                                <ScrollViewer Margin="0" Width="225" x:Name="PART_ContentHost" />
                                 <Label VerticalAlignment="Center" HorizontalAlignment="Right" Content="{TemplateBinding Tag}"></Label>
                             </DockPanel>
                         </Border>

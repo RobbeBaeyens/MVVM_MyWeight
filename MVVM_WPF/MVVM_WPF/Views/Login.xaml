@@ -20,7 +20,7 @@
                 <Label Style="{StaticResource TextBoxLabel}">Password</Label>
                 <components:BindablePasswordBox Password="{Binding Password}" x:Name="pswPassword"></components:BindablePasswordBox>
                 <Separator Height="20" Style="{StaticResource Spacing}"></Separator>
-                <Button Grid.Row="1" Style="{StaticResource BlueButton}" Command="{Binding}" CommandParameter="Login">Login</Button>
+                <Button Cursor="Hand" Grid.Row="1" Style="{StaticResource BlueButton}" Command="{Binding}" CommandParameter="Login">Login</Button>
             </StackPanel>
         </Grid>
     </Grid>

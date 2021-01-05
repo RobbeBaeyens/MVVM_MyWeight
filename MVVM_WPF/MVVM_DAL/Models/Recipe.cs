@@ -30,12 +30,10 @@ namespace MVVM_DAL.Models
         public int Servings { get; set; }
 
         [Required]
-        [DataType(DataType.Time)]
-        public DateTime PrepTime { get; set; }
+        public int PrepTime { get; set; }
 
         [Required]
-        [DataType(DataType.Time)]
-        public DateTime CookTime { get; set; }
+        public int CookTime { get; set; }
 
         // Nav
         public ICollection<MealRecipe> MealRecipes { get; set; }

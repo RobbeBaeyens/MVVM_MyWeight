@@ -1,7 +1,9 @@
 ﻿using MVVM_DAL.Data;
 using MVVM_DAL.Data.UnitOfWork;
 using MVVM_DAL.Models;
+using MVVM_DAL.Security;
 using MVVM_WPF.Commands;
+using MVVM_WPF.Views.Error;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +18,8 @@ namespace MVVM_WPF.ViewModels
     {
         #region Properties
         IUnitOfWork unitOfWork = new UnitOfWork(new MyWeightEntities());
+
+        PasswordHasher hash = new PasswordHasher();
         public User user { get; set; }
         public List<User> users { get; set; }
 
@@ -107,7 +111,8 @@ namespace MVVM_WPF.ViewModels
             switch (parameter.ToString())
             {
                 case "Register":
-                    if(!String.IsNullOrWhiteSpace(this.UserName) && !String.IsNullOrWhiteSpace(this.Password) && !String.IsNullOrWhiteSpace(this.Weight) && !String.IsNullOrWhiteSpace(this.wantedWeight))
+                    CustomErrorDialogue errorDialogue;
+                    if (!String.IsNullOrWhiteSpace(this.UserName) && !String.IsNullOrWhiteSpace(this.Password) && !String.IsNullOrWhiteSpace(this.Weight) && !String.IsNullOrWhiteSpace(this.wantedWeight))
                     {
                         int caloriesDayGoalInt;
                         decimal weightDecimal;
@@ -118,37 +123,37 @@ namespace MVVM_WPF.ViewModels
                             users = unitOfWork.UserRepo.Ophalen(u => u.Username == this.UserName).ToList();
                             if(users.Count == 0)
                             {
-                                user = new User() { Username = this.UserName, Password = this.Password, Weight = decimal.Parse(this.Weight), CurrentWeight = decimal.Parse(this.Weight), WantedWeight = decimal.Parse(this.WantedWeight), CaloriesDayGoal = caloriesDayGoalInt };
+                                user = new User() { Username = this.UserName, Password = hash.HashPassword(this.Password), Weight = decimal.Parse(this.Weight), CurrentWeight = decimal.Parse(this.Weight), WantedWeight = decimal.Parse(this.WantedWeight), CaloriesDayGoal = caloriesDayGoalInt };
                                 unitOfWork.UserRepo.Toevoegen(user);
                                 ok = unitOfWork.Save();
                                 if (ok == 1)
                                 {
-                                    Console.WriteLine($"Registered {user.Username} with ID: {user.UserID}");
+                                    CustomSuccesDialogue succesDialogue = new CustomSuccesDialogue("Succes", $"{user.Username} Succesvol geregistreerd", new int[] { 360, 500 });
+                                    succesDialogue.ShowDialog();
                                     UpdateViewCommand.Execute("Login");
                                 }
                                 else
                                 {
-                                    Console.WriteLine($"Register foutje..??");
+                                    errorDialogue = new CustomErrorDialogue("Error", "Register foutje..??", new int[] { 360, 500 });
+                                    errorDialogue.ShowDialog();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine($"{this.UserName} bestaat al!");
+                                errorDialogue = new CustomErrorDialogue("Error", $"{this.UserName} bestaat al!", new int[] { 360, 500 });
+                                errorDialogue.ShowDialog();
                             }
                         }
                         else
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Weight, WantedWeight & Calories Goal moeten deimale getallen zijn of integers!");
-                            Console.ForegroundColor = ConsoleColor.White;
+                            errorDialogue = new CustomErrorDialogue("Error",  "Weight, WantedWeight & Calories Goal moeten deimale getallen zijn of integers!", new int[] { 360, 500 });
+                            errorDialogue.ShowDialog();
                         }
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Alle velden invullen!");
-                        Console.WriteLine($"{this.UserName}, {this.Password.Length > 0}, {this.Weight}, {this.wantedWeight}");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        errorDialogue = new CustomErrorDialogue("Error", "alle velden invullen!", new int[] { 360, 500 });
+                        errorDialogue.ShowDialog();
                     }
                     break;
             }

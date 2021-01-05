@@ -1,0 +1,93 @@
+﻿<Window x:Class="MVVM_WPF.Views.DiaryAdd.NewFood"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVM_WPF.Views"
+        mc:Ignorable="d"
+        Title="NewFood" Icon="/MVVM_WPF;component/Resources/Images/Weight.png" WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True" WindowStyle="None" Padding="0" MinHeight="500" MinWidth="700" Height="600" Width="350" Background="Transparent">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome
+            ResizeBorderThickness="5"
+            CaptionHeight="45"
+            CornerRadius="20,20,20,20"
+            GlassFrameThickness="0">
+        </shell:WindowChrome>
+    </shell:WindowChrome.WindowChrome>
+    <Border x:Name="WindowBorder" BorderBrush="{StaticResource Primary}" BorderThickness="2" CornerRadius="20" Background="{StaticResource Secondary}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+
+            <Border CornerRadius="20 20 0 0" Background="{StaticResource Primary}" Grid.Row="0">
+                <DockPanel>
+                    <Image Source="/Resources/Images/Weight.png" Width="20" Height="20" HorizontalAlignment="Left" Margin="10"/>
+                    <Label Foreground="{StaticResource Secondary}" FontSize="20" HorizontalAlignment="Left" Padding="0" VerticalAlignment="Center">New Food</Label>
+                    <Border CornerRadius="0 20 0 0" Background="{StaticResource Red}" HorizontalAlignment="Right">
+                        <DockPanel shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                            <Button Command="{Binding}" CommandParameter="Exit" Width="40" Height="40" Style="{StaticResource Hoverlessbtn}">
+                                <Image Source="/Resources/Images/Exit.png" Width="20" Height="20" HorizontalAlignment="Center" Margin="10"/>
+                            </Button>
+                        </DockPanel>
+                    </Border>
+                </DockPanel>
+            </Border>
+
+            <DockPanel Grid.Row="1">
+                <Border Padding="10">
+                    <StackPanel>
+                        <Label Content="Brand*" Style="{StaticResource TextBoxLabel}"/>
+                        <TextBox IsEnabled="{Binding EditModeVisibility}" Text="{Binding Brand}" Style="{StaticResource BlueTextBox}"/>
+                        <Separator Height="10" Style="{StaticResource Spacing}"/>
+                        <Label Content="Name*" Style="{StaticResource TextBoxLabel}"/>
+                        <TextBox IsEnabled="{Binding EditModeVisibility}" Text="{Binding Name}" Style="{StaticResource BlueTextBox}"/>
+                        <Separator Height="10" Style="{StaticResource Spacing}"/>
+                        <Label Content="Nutrition Facts" FontWeight="Bold" Style="{StaticResource TextBoxLabel}"/>
+                        <Label Content="Serving Size*" Style="{StaticResource TextBoxLabel}"/>
+                        <ComboBox IsEnabled="{Binding EditModeVisibility}" SelectedItem="{Binding SelectedServingSize}" ItemsSource="{Binding ServingSizes}" SelectedValuePath="Value" DisplayMemberPath="Name" Cursor="Hand" Width="300" Height="40" FontSize="25"/>
+                        <Separator Height="10" Style="{StaticResource Spacing}"/>
+                        <StackPanel Visibility="{Binding ServingSizeVisibility}">
+                            <DockPanel Visibility="{Binding ServingSizeVisibility1}">
+                                <Label Content="100" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource TextBoxLabel}"/>
+                                <ComboBox IsEnabled="{Binding EditModeVisibility}" SelectedItem="{Binding SelectedServingSize1}" ItemsSource="{Binding ServingSizes1}" SelectedValuePath="Value" DisplayMemberPath="Name" Cursor="Hand" Width="260" Height="40" FontSize="25"/>
+                            </DockPanel>
+                            <StackPanel Visibility="{Binding ServingSizeVisibility2}">
+                                <Label Content="Serving Size Description*" Style="{StaticResource TextBoxLabel}"/>
+                                <TextBox IsEnabled="{Binding EditModeVisibility}" Text="{Binding ServingSizeDescription}" Style="{StaticResource BlueTextBox}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Rectangle VerticalAlignment="Stretch" Width="3" Margin="10" Stroke="Black" />
+                <Border Padding="10">
+                    <StackPanel>
+                        <Label Content="Energy* (1 cal = 4,184kJ)" Style="{StaticResource TextBoxLabel}"/>
+                        <TextBox Text="{Binding Energy}" Tag="cal" Style="{StaticResource KGTextBox}"/>
+                        <Separator Height="10" Style="{StaticResource Spacing}"/>
+
+                        <Label Content="Fat*" Style="{StaticResource TextBoxLabel}"/>
+                        <TextBox Text="{Binding Fat}" Tag="g" Style="{StaticResource KGTextBox}"/>
+                        <Separator Height="10" Style="{StaticResource Spacing}"/>
+
+                        <Label Content="Carbohydrates*" Style="{StaticResource TextBoxLabel}"/>
+                        <TextBox Text="{Binding Carbohydrates}" Tag="g" Style="{StaticResource KGTextBox}"/>
+                        <Separator Height="10" Style="{StaticResource Spacing}"/>
+
+                        <Label Content="Protein*" Style="{StaticResource TextBoxLabel}"/>
+                        <TextBox Text="{Binding Protein}" Tag="g" Style="{StaticResource KGTextBox}"/>
+                    </StackPanel>
+                </Border>
+
+            </DockPanel>
+
+            <Border CornerRadius="0 0 20 20" Background="{StaticResource Primary}" Grid.Row="2">
+                <Button Command="{Binding}" CommandParameter="AddFood" Cursor="Hand" Content="{Binding ConfirmButtonText}" FontSize="40" FontWeight="Bold" Foreground="White" Style="{StaticResource Hoverlessbtn}"/>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

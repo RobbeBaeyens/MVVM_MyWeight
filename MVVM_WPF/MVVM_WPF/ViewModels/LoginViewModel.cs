@@ -1,10 +1,13 @@
 ﻿using MVVM_DAL.Data;
 using MVVM_DAL.Data.UnitOfWork;
 using MVVM_DAL.Models;
+using MVVM_DAL.Security;
 using MVVM_WPF.Commands;
+using MVVM_WPF.Views.Error;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static MVVM_DAL.Security.PasswordHasher;
 
 namespace MVVM_WPF.ViewModels
 {
@@ -12,6 +15,8 @@ namespace MVVM_WPF.ViewModels
     {
         #region Properties
         IUnitOfWork unitOfWork = new UnitOfWork(new MyWeightEntities());
+
+        PasswordHasher hash = new PasswordHasher();
         public User user { get; set; }
         public List<User> users { get; set; }
 
@@ -63,42 +68,45 @@ namespace MVVM_WPF.ViewModels
 
         public override void Execute(object parameter)
         {
+            CustomErrorDialogue errorDialogue;
             switch (parameter.ToString())
             {
                 case "Login":
                     Console.WriteLine("Clicked login!");
                     if (!String.IsNullOrWhiteSpace(this.UserName) && !String.IsNullOrWhiteSpace(this.Password))
                     {
+                        bool userExists = false;
                         foreach(User user in users)
                         {
                             if(this.UserName == user.Username)
                             {
-                                if(this.Password == user.Password)
+                                if(hash.VerifyHashedPassword(user.Password, this.Password) == PasswordVerificationResult.Success)
                                 {
                                     App.Current.Properties["GlobalUserID"] = user.UserID;
+
+                                    CustomSuccesDialogue succesDialogue = new CustomSuccesDialogue("Error", "Login succesvol!", new int[] { 360, 500 });
+                                    succesDialogue.ShowDialog();
+
                                     UpdateViewCommand.Execute("AccountDetails");
                                 }
                                 else
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine("Incorrect wachtwoord!");
-                                    Console.ForegroundColor = ConsoleColor.White;
+                                    errorDialogue = new CustomErrorDialogue("Error", "Incorrect wachtwoord!", new int[] { 360, 500 });
+                                    errorDialogue.ShowDialog();
                                 }
+                                userExists = true;
                             }
-                            else
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Gebruiker bestaat niet!");
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }
+                        }
+                        if (userExists == false)
+                        {
+                            errorDialogue = new CustomErrorDialogue("Error", "Gebruiker bestaat niet!", new int[] { 360, 500 });
+                            errorDialogue.ShowDialog();
                         }
                     }
                     else
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Alle velden invullen!");
-                        Console.WriteLine($"{this.UserName}, {this.Password.Length > 0}");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        errorDialogue = new CustomErrorDialogue("Error", "alle velden invullen!", new int[] { 360, 500 });
+                        errorDialogue.ShowDialog();
                     }
                     break;
             }

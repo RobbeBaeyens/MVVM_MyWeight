@@ -2,6 +2,7 @@
 using MVVM_DAL.Data.UnitOfWork;
 using MVVM_DAL.Models;
 using MVVM_WPF.Commands;
+using MVVM_WPF.Views.Error;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,19 @@ namespace MVVM_WPF.ViewModels
     public class AccountDetailsViewModel : BasisViewModel
     {
         IUnitOfWork unitOfWork = new UnitOfWork(new MyWeightEntities());
+
+        private string _username;
+        public string Username
+        {
+            get
+            {
+                return _username;
+            }
+            set
+            {
+                _username = value;
+            }
+        }
 
         private decimal _weight1;
         public decimal Weight1
@@ -93,30 +107,139 @@ namespace MVVM_WPF.ViewModels
             }
         }
 
+        private string _lostWeightKg;
+        public string LostWeightKg
+        {
+            get
+            {
+                return _lostWeightKg;
+            }
+            set
+            {
+                _lostWeightKg = value;
+            }
+        }
+
+        private string _performance;
+        public string Performance
+        {
+            get
+            {
+                return _performance;
+            }
+            set
+            {
+                _performance = value;
+            }
+        }
+
+        private string _weightToGoKg;
+        public string WeightToGoKg
+        {
+            get
+            {
+                return _weightToGoKg;
+            }
+            set
+            {
+                _weightToGoKg = value;
+            }
+        }
+
+        private string _weight;
+        public string Weight
+        {
+            get
+            {
+                return _weight;
+            }
+            set
+            {
+                _weight = value;
+            }
+        }
+
+        private string _wantedWeight;
+        public string WantedWeight
+        {
+            get
+            {
+                return _wantedWeight;
+            }
+            set
+            {
+                _wantedWeight = value;
+            }
+        }
+
+        private string _dayGoal;
+        public string DayGoal
+        {
+            get
+            {
+                return _dayGoal;
+            }
+            set
+            {
+                _dayGoal = value;
+            }
+        }
+
+        private string _setGoal;
+        public string SetGoal
+        {
+            get
+            {
+                return _setGoal;
+            }
+            set
+            {
+                _setGoal = value;
+            }
+        }
+
+        User user;
+
         public AccountDetailsViewModel(MainViewModel viewModel, int userID)
         {
             App.Current.Properties["GlobalUserID"] = userID;
-            User user = unitOfWork.UserRepo.ZoekOpPK(userID);
+            user = unitOfWork.UserRepo.ZoekOpPK(userID);
+            Username = user.Username;
+
+            LoadPage();
+
+            UpdateViewCommand = new UpdateViewCommand(viewModel);
+        }
+
+        public void LoadPage()
+        {
             CurrentWeight = user.CurrentWeight;
-            if(user.WantedWeight > user.Weight)
+            if (user.WantedWeight > user.Weight)
             {
                 Weight1 = user.Weight;
                 Weight2 = user.WantedWeight;
+                Performance = "Weight Gain";
+            }
+            else if (user.WantedWeight == user.Weight)
+            {
+                Performance = "Weight Hold";
             }
             else
             {
                 Weight2 = user.Weight;
                 Weight1 = user.WantedWeight;
+                Performance = "Weight Loss";
             }
-            Console.WriteLine(Weight1);
-            Console.WriteLine(Weight2);
 
             Weight1Kg = Weight1.ToString() + " Kg";
             Weight2Kg = Weight2.ToString() + " Kg";
             CurrentWeightKg = CurrentWeight.ToString() + " Kg";
 
-            UpdateViewCommand = new UpdateViewCommand(viewModel);
+            WeightToGoKg = (user.WantedWeight - user.CurrentWeight).ToString() + " Kg";
+
+            SetGoal = $"Set Goal: {user.CaloriesDayGoal} Kcal";
         }
+
         public override string this[string columnName]
         {
             get
@@ -132,11 +255,62 @@ namespace MVVM_WPF.ViewModels
 
         public override void Execute(object parameter)
         {
+            decimal currentWeight = 0;
+            decimal wantedWeight = 0;
             switch (parameter.ToString())
             {
                 case "Logout":
                     App.Current.Properties["GlobalUserID"] = -1;
                     UpdateViewCommand.Execute("Logout");
+                    break;
+                case "SetCurrentWeight":
+                    if (decimal.TryParse(Weight, out currentWeight))
+                    {
+                        user.CurrentWeight = currentWeight;
+                        unitOfWork.UserRepo.Aanpassen(user);
+                        unitOfWork.Save();
+                        LoadPage();
+                    }
+                    else
+                    {
+                        CustomErrorDialogue errorDialogue = new CustomErrorDialogue("Error", "Current Weight must be a decimal value");
+                        errorDialogue.ShowDialog();
+                    }
+                    break;
+                case "SetWantedWeight":
+                    if (decimal.TryParse(WantedWeight, out wantedWeight))
+                    {
+                        user.WantedWeight = wantedWeight;
+                        unitOfWork.UserRepo.Aanpassen(user);
+                        unitOfWork.Save();
+                        LoadPage();
+                    }
+                    else
+                    {
+                        CustomErrorDialogue errorDialogue = new CustomErrorDialogue("Error", "Wanted Weight must be a decimal value");
+                        errorDialogue.ShowDialog();
+                    }
+                    break;
+                case "SetDayGoal":
+                    int dayGoal = 0;
+                    if (int.TryParse(DayGoal, out dayGoal))
+                    {
+                        user.CaloriesDayGoal = dayGoal;
+                        unitOfWork.UserRepo.Aanpassen(user);
+                        unitOfWork.Save();
+                        LoadPage();
+                    }
+                    else
+                    {
+                        CustomErrorDialogue errorDialogue = new CustomErrorDialogue("Error", "Calories Goal must be an integer");
+                        errorDialogue.ShowDialog();
+                    }
+                    break;
+                case "ResetWeightProgress":
+                    user.Weight = user.CurrentWeight;
+                    unitOfWork.UserRepo.Aanpassen(user);
+                    unitOfWork.Save();
+                    LoadPage();
                     break;
             }
         }

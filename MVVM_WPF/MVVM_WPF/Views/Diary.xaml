@@ -5,12 +5,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVM_WPF.Views"
-        mc:Ignorable="d" MinHeight="490" d:DesignWidth="800" Background="{StaticResource Secondary}">
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d" MinHeight="500" d:DesignWidth="800" Background="{StaticResource Secondary}">
     <Grid>
         <DockPanel>
-            <StackPanel>
+            <StackPanel Width="180">
                 <Label FontSize="50" FontWeight="Bold" Foreground="#666">Diary</Label>
-                <DatePicker Margin="10" Width="150" SelectedDate="{Binding Date}"/>
+                <Viewbox Width="140">
+                    <Calendar Cursor="Hand" Margin="10" SelectedDate="{Binding Date}" DisplayDateEnd="{Binding Mode=OneWay, Source={x:Static System:DateTime.Today}}"/>
+                </Viewbox>
                 <Label Padding="0 0 0 5" Width="120" FontSize="24" Foreground="#666">Summary</Label>
                 <ContentControl Content="{Binding SummaryGridControl}" Width="120" Height="120"></ContentControl>
                 <Label Padding="0 0 0 5" Width="120" FontSize="12.5" Foreground="#666">Callories Remaining:</Label>
@@ -22,45 +25,144 @@
                 <Label Padding="0 0 0 5" Width="120" FontSize="12.5" Foreground="#666" Content="{Binding RDI}"/>
             </StackPanel>
             <Rectangle VerticalAlignment="Stretch" Width="3" Margin="10" Stroke="Black" />
-            <ScrollViewer>
+            <ScrollViewer VerticalScrollBarVisibility="Visible">
                 <StackPanel>
                     <Border Background="White" Height="50" Margin="30 30 30 0">
                         <DockPanel>
                             <Image Source="../Resources/Images/Diary-icons/Breakfast-icon.png" HorizontalAlignment="Left" Margin="5"/>
                             <Label FontSize="30" FontWeight="Bold" Foreground="#444">Breakfast</Label>
-                            <Button HorizontalAlignment="Right" Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand"
-                                    Command="{Binding}" CommandParameter="Breakfast">
-                                <Image Source="../Resources/Images/Plus.png"/>
-                            </Button>
+                            <DockPanel HorizontalAlignment="Right">
+                                <Button Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand" Content="➕" Foreground="{StaticResource Primary}" FontSize="20" Command="{Binding}" CommandParameter="Breakfast"/>
+                                <Button Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand" Content="➖" Foreground="{StaticResource Primary}" FontSize="20" Command="{Binding}" CommandParameter="RemoveBreakfast"/>
+                            </DockPanel>
                         </DockPanel>
                     </Border>
+                    <DockPanel>
+                        <ListBox SelectedItem="{Binding SelectedBreakfastFood}" ItemsSource="{Binding BreakfastFoods}" Margin="30 0" ScrollViewer.VerticalScrollBarVisibility="Visible"  MaxHeight="200">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource Primary}" BorderThickness="2" Width="560"
+                                        ToolTip="{Binding ToolTip}">
+                                        <StackPanel>
+                                            <DockPanel>
+                                                <Label Padding="10 2 0 2" FontSize="20" FontWeight="Bold" Content="{Binding Name}"/>
+                                                <Label Padding="10 2 0 2" FontSize="16" Foreground="{StaticResource Primary}" Content="{Binding Description}"/>
+                                            </DockPanel>
+                                            <DockPanel>
+                                                <Label Padding="10 2 0 2" FontSize="14" Foreground="{StaticResource Green}" Content="{Binding UnitOrServings}"/>
+                                                <Label Padding="10 2 0 2" FontSize="14" Content="{Binding RDI}"/>
+                                                <Label Padding="2 2 0 2" FontSize="14" Content="-"/>
+                                                <Label Padding="2 2 0 2" FontSize="14" Content="{Binding Calories}"/>
+                                            </DockPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+
                     <Border Background="White" Height="50" Margin="30 30 30 0">
                         <DockPanel>
                             <Image Source="../Resources/Images/Diary-icons/Lunch-icon.png" HorizontalAlignment="Left" Margin="5"/>
                             <Label FontSize="30" FontWeight="Bold" Foreground="#444">Lunch</Label>
-                            <Button HorizontalAlignment="Right" Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand">
-                                <Image Source="../Resources/Images/Plus.png"/>
-                            </Button>
+                            <DockPanel HorizontalAlignment="Right">
+                                <Button Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand" Content="➕" Foreground="{StaticResource Primary}" FontSize="20" Command="{Binding}" CommandParameter="Lunch"/>
+                                <Button Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand" Content="➖" Foreground="{StaticResource Primary}" FontSize="20" Command="{Binding}" CommandParameter="RemoveLunch"/>
+                            </DockPanel>
                         </DockPanel>
                     </Border>
+                    <DockPanel>
+                        <ListBox SelectedItem="{Binding SelectedLunchFood}" ItemsSource="{Binding LunchFoods}" Margin="30 0" ScrollViewer.VerticalScrollBarVisibility="Visible"  MaxHeight="200">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource Primary}" BorderThickness="2" Width="560"
+                                        ToolTip="{Binding ToolTip}">
+                                        <StackPanel>
+                                            <DockPanel>
+                                                <Label Padding="10 2 0 2" FontSize="20" FontWeight="Bold" Content="{Binding Name}"/>
+                                                <Label Padding="10 2 0 2" FontSize="16" Foreground="{StaticResource Primary}" Content="{Binding Description}"/>
+                                            </DockPanel>
+                                            <DockPanel>
+                                                <Label Padding="10 2 0 2" FontSize="14" Foreground="{StaticResource Green}" Content="{Binding UnitOrServings}"/>
+                                                <Label Padding="10 2 0 2" FontSize="14" Content="{Binding RDI}"/>
+                                                <Label Padding="2 2 0 2" FontSize="14" Content="-"/>
+                                                <Label Padding="2 2 0 2" FontSize="14" Content="{Binding Calories}"/>
+                                            </DockPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                    
                     <Border Background="White" Height="50" Margin="30 30 30 0">
                         <DockPanel>
                             <Image Source="../Resources/Images/Diary-icons/Dinner-icon.png" HorizontalAlignment="Left" Margin="5"/>
                             <Label FontSize="30" FontWeight="Bold" Foreground="#444">Dinner</Label>
-                            <Button HorizontalAlignment="Right" Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand">
-                                <Image Source="../Resources/Images/Plus.png"/>
-                            </Button>
+                            <DockPanel HorizontalAlignment="Right">
+                                <Button Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand" Content="➕" Foreground="{StaticResource Primary}" FontSize="20" Command="{Binding}" CommandParameter="Dinner"/>
+                                <Button Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand" Content="➖" Foreground="{StaticResource Primary}" FontSize="20" Command="{Binding}" CommandParameter="RemoveDinner"/>
+                            </DockPanel>
                         </DockPanel>
                     </Border>
+                    <DockPanel>
+                        <ListBox SelectedItem="{Binding SelectedDinnerFood}" ItemsSource="{Binding DinnerFoods}" Margin="30 0" ScrollViewer.VerticalScrollBarVisibility="Visible"  MaxHeight="200">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource Primary}" BorderThickness="2" Width="560"
+                                        ToolTip="{Binding ToolTip}">
+                                        <StackPanel>
+                                            <DockPanel>
+                                                <Label Padding="10 2 0 2" FontSize="20" FontWeight="Bold" Content="{Binding Name}"/>
+                                                <Label Padding="10 2 0 2" FontSize="16" Foreground="{StaticResource Primary}" Content="{Binding Description}"/>
+                                            </DockPanel>
+                                            <DockPanel>
+                                                <Label Padding="10 2 0 2" FontSize="14" Foreground="{StaticResource Green}" Content="{Binding UnitOrServings}"/>
+                                                <Label Padding="10 2 0 2" FontSize="14" Content="{Binding RDI}"/>
+                                                <Label Padding="2 2 0 2" FontSize="14" Content="-"/>
+                                                <Label Padding="2 2 0 2" FontSize="14" Content="{Binding Calories}"/>
+                                            </DockPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                    
                     <Border Background="White" Height="50" Margin="30 30 30 0">
                         <DockPanel>
                             <Image Source="../Resources/Images/Diary-icons/Snacks-icon.png" HorizontalAlignment="Left" Margin="5"/>
                             <Label FontSize="30" FontWeight="Bold" Foreground="#444">Snacks</Label>
-                            <Button HorizontalAlignment="Right" Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand">
-                                <Image Source="../Resources/Images/Plus.png"/>
-                            </Button>
+                            <DockPanel HorizontalAlignment="Right">
+                                <Button Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand" Content="➕" Foreground="{StaticResource Primary}" FontSize="20" Command="{Binding}" CommandParameter="Snacks/Other"/>
+                                <Button Margin="12" Style="{StaticResource Hoverlessbtn}" Cursor="Hand" Content="➖" Foreground="{StaticResource Primary}" FontSize="20" Command="{Binding}" CommandParameter="RemoveSnack"/>
+                            </DockPanel>
                         </DockPanel>
                     </Border>
+                    <DockPanel>
+                        <ListBox SelectedItem="{Binding SelectedSnackFood}" ItemsSource="{Binding SnackFoods}" Margin="30 0" ScrollViewer.VerticalScrollBarVisibility="Visible"  MaxHeight="200">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource Primary}" BorderThickness="2" Width="560"
+                                        ToolTip="{Binding ToolTip}">
+                                        <StackPanel>
+                                            <DockPanel>
+                                                <Label Padding="10 2 0 2" FontSize="20" FontWeight="Bold" Content="{Binding Name}"/>
+                                                <Label Padding="10 2 0 2" FontSize="16" Foreground="{StaticResource Primary}" Content="{Binding Description}"/>
+                                            </DockPanel>
+                                            <DockPanel>
+                                                <Label Padding="10 2 0 2" FontSize="14" Foreground="{StaticResource Green}" Content="{Binding UnitOrServings}"/>
+                                                <Label Padding="10 2 0 2" FontSize="14" Content="{Binding RDI}"/>
+                                                <Label Padding="2 2 0 2" FontSize="14" Content="-"/>
+                                                <Label Padding="2 2 0 2" FontSize="14" Content="{Binding Calories}"/>
+                                            </DockPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                    
                 </StackPanel>
             </ScrollViewer>
         </DockPanel>

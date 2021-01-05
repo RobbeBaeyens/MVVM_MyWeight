@@ -20,9 +20,9 @@ namespace MVVM_DAL.Models
 
         // Attributes
         [Required]
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
 
-        [Required]
+
         [MaxLength(20)]
         public string Unit { get; set; }
 

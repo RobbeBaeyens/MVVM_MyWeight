@@ -82,7 +82,12 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AccountDetailsViewModel.cs" />
+    <Compile Include="ViewModels\DiaryFoodsViewModel.cs" />
     <Compile Include="ViewModels\DiaryRecipesViewModel.cs" />
+    <Compile Include="ViewModels\MealViewModel.cs" />
+    <Compile Include="ViewModels\SuccesViewModel.cs" />
+    <Compile Include="ViewModels\NewFoodViewModel.cs" />
+    <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\NewRecipeViewModel.cs" />
     <Compile Include="ViewModels\NavNotLoggedInViewModel.cs" />
     <Compile Include="ViewModels\NavLoggedInViewModel.cs" />
@@ -98,11 +103,26 @@
     <Compile Include="Views\Diary.xaml.cs">
       <DependentUpon>Diary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DiaryAdd\NewFood.xaml.cs">
+      <DependentUpon>NewFood.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DiaryAdd\NewRecipe.xaml.cs">
       <DependentUpon>NewRecipe.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DiaryAdd\Foods.xaml.cs">
+      <DependentUpon>Foods.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DiaryAdd\Recipes.xaml.cs">
       <DependentUpon>Recipes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Error\MealDialogue.xaml.cs">
+      <DependentUpon>MealDialogue.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Error\CustomSuccesDialogue.xaml.cs">
+      <DependentUpon>CustomSuccesDialogue.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Error\CustomErrorDialogue.xaml.cs">
+      <DependentUpon>CustomErrorDialogue.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Nav\NavNotLoggedIn.xaml.cs">
       <DependentUpon>NavNotLoggedIn.xaml</DependentUpon>
@@ -139,13 +159,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\DiaryAdd\NewFood.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\DiaryAdd\NewRecipe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DiaryAdd\Foods.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\DiaryAdd\Recipes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Error\MealDialogue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Error\CustomSuccesDialogue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Error\CustomErrorDialogue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Nav\NavNotLoggedIn.xaml">
       <Generator>MSBuild:Compile</Generator>

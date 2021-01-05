@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:MVVM_WPF.Views"
         mc:Ignorable="d"
         Title="NewRecipe" Icon="/MVVM_WPF;component/Resources/Images/Weight.png" WindowStartupLocation="CenterScreen"
-        AllowsTransparency="True" WindowStyle="None" Padding="0" MinHeight="800" MinWidth="1050" Height="600" Width="350" Background="Transparent">
+        AllowsTransparency="True" WindowStyle="None" Padding="0" MinHeight="970" MinWidth="1050" Height="970" Width="1050" Background="Transparent">
     <shell:WindowChrome.WindowChrome>
         <shell:WindowChrome
             ResizeBorderThickness="5"
@@ -44,10 +44,10 @@
                         <StackPanel>
                             <Label Content="Step 1: Enter recipe info" FontSize="20"/>
                             <Label Content="Recipe Name*" Style="{StaticResource TextBoxLabel}"/>
-                            <TextBox Style="{StaticResource BlueTextBox}"/>
+                            <TextBox Text="{Binding Name}" Style="{StaticResource BlueTextBox}"/>
                             <Separator Height="10" Style="{StaticResource Spacing}"/>
                             <Label Content="Description*" Style="{StaticResource TextBoxLabel}"/>
-                            <TextBox VerticalContentAlignment="Top" Height="180" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Style="{StaticResource BlueTextBox}"/>
+                            <TextBox Text="{Binding Description}" VerticalContentAlignment="Top" Height="180" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Style="{StaticResource BlueTextBox}"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
@@ -59,13 +59,13 @@
                         <StackPanel>
                             <Label Content="Step 2: Enter the numbers" FontSize="20"/>
                             <Label Content="Number of servings*" Style="{StaticResource TextBoxLabel}"/>
-                            <TextBox Style="{StaticResource BlueTextBox}"/>
+                            <TextBox Text="{Binding ServingsNr}" Style="{StaticResource BlueTextBox}"/>
                             <Separator Height="10" Style="{StaticResource Spacing}"/>
                             <Label Content="Prep time*" Style="{StaticResource TextBoxLabel}"/>
-                            <TextBox Style="{StaticResource BlueTextBox}"/>
+                            <TextBox Text="{Binding PrepTime}" Style="{StaticResource MINTextBox}" Tag="min"/>
                             <Separator Height="10" Style="{StaticResource Spacing}"/>
                             <Label Content="Cook time*" Style="{StaticResource TextBoxLabel}"/>
-                            <TextBox Style="{StaticResource BlueTextBox}"/>
+                            <TextBox Text="{Binding CookTime}" Style="{StaticResource MINTextBox}" Tag="min"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
@@ -77,24 +77,59 @@
                         <StackPanel>
                             <Label Content="Step 3: Enter the details" FontSize="20"/>
                             <Label Content="Recipe Category*" Style="{StaticResource TextBoxLabel}"/>
-                            <ComboBox Height="40" FontSize="25" Margin="20 0" ItemsSource="{Binding RecipeCategories}"/>
-                            <Separator Height="10" Style="{StaticResource Spacing}"/>
-                            <Label Content="Ingredients (min 3)" Style="{StaticResource TextBoxLabel}"/>
-                            <DockPanel HorizontalAlignment="Stretch" Margin="20 0">
-                                <ComboBox Height="60" Width="150" FontSize="25" ItemsSource="{Binding Ingredients}"/>
-                                <Button Content="+" Height="60" Width="60" FontSize="35" Padding="0" Style="{StaticResource BlueButton}"/>
-                                <Button Content="New" Height="60" Width="60" FontSize="20" Padding="0" Style="{StaticResource BlueButton}"/>
-                            </DockPanel>
-                            <Separator Height="10" Style="{StaticResource Spacing}"/>
-                            <ListBox Height="120" Margin="20 0"/>
-                            <Separator Height="10" Style="{StaticResource Spacing}"/>
+                            <ComboBox Cursor="Hand" Height="40" FontSize="25" Margin="20 0" ItemsSource="{Binding RecipeCategories}" DisplayMemberPath="Name" SelectedValuePath="RecipeCategoryID" SelectedValue="{Binding SelectedRecipeCategory}"/>
+                            <Separator Height="20" Style="{StaticResource Spacing}"/>
+                            <Border CornerRadius="30" Padding="5" BorderBrush="{StaticResource Gray}" BorderThickness="2">
+                                <StackPanel>
+                                    <Label Content="Ingredients / Foods (min 3)" Style="{StaticResource TextBoxLabel}"/>
+                                    <DockPanel HorizontalAlignment="Stretch" Margin="10 0">
+                                        <StackPanel>
+                                            <ComboBox Height="60" Width="150" FontSize="25" ItemsSource="{Binding Ingredients}" DisplayMemberPath="Name" SelectedValuePath="IngredientID" SelectedValue="{Binding SelectedIngredient}"/>
+                                            <Label Width="150" Content="Amount" Style="{StaticResource TextBoxLabel}"/>
+                                            <TextBox Width="150" Text="{Binding IngredientAmount}" Style="{StaticResource BlueTextBox}"/>
+                                            <Label Width="150" Content="Unit" Style="{StaticResource TextBoxLabel}"/>
+                                            <TextBox Width="150" Text="{Binding IngredientUnit}" Style="{StaticResource BlueTextBox}"/>
+                                        </StackPanel>
+                                        <Button Command="{Binding}" CommandParameter="AddIngredient" Cursor="Hand" Content="+" Height="60" Width="60" FontSize="35" Padding="0" VerticalAlignment="Bottom" Style="{StaticResource BlueButton}"/>
+                                        <Button Cursor="Hand" Command="{Binding}" CommandParameter="Foods" Content="New" Height="60" Width="60" FontSize="20" Padding="0" VerticalAlignment="Bottom" Style="{StaticResource BlueButton}"/>
+                                    </DockPanel>
+                                    <Separator Height="10" Style="{StaticResource Spacing}"/>
+
+                                    <DockPanel HorizontalAlignment="Stretch" Margin="20 0">
+                                        <ListBox SelectedValuePath="Id" SelectedValue="{Binding SelectedIngredientListItem}" ItemsSource="{Binding IngredientsList}" Height="120" Width="220">
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <DockPanel>
+                                                        <Label Content="{Binding Amount}"/>
+                                                        <Label Content="{Binding Name}"/>
+                                                        <Label Content="{Binding Brand}"/>
+                                                    </DockPanel>
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+                                        </ListBox>
+                                        <Button Command="{Binding}" CommandParameter="RemoveIngredient" Cursor="Hand" Content="-" Height="60" Width="60" VerticalAlignment="Top" FontSize="35" Padding="0" Style="{StaticResource BlueButton}"/>
+                                    </DockPanel>
+                                </StackPanel>
+                            </Border>
+                            <Separator Height="20" Style="{StaticResource Spacing}"/>
                             <Label Content="Directions (min 3)" Style="{StaticResource TextBoxLabel}"/>
                             <DockPanel HorizontalAlignment="Stretch" Margin="20 0">
-                                <TextBox VerticalContentAlignment="Top" Height="70" Width="220" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Style="{StaticResource BlueTextBox}"/>
-                                <Button Content="+" Height="60" Width="60" FontSize="35" Padding="0" Style="{StaticResource BlueButton}"/>
+                                <TextBox Text="{Binding Direction}" VerticalContentAlignment="Top" Height="70" Width="220" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Style="{StaticResource BlueTextBox}"/>
+                                <Button Command="{Binding}" CommandParameter="AddDirections" Cursor="Hand" Content="+" Height="60" Width="60" FontSize="35" Padding="0" Style="{StaticResource BlueButton}"/>
                             </DockPanel>
                             <Separator Height="10" Style="{StaticResource Spacing}"/>
-                            <ListBox Height="120" Margin="20 0"/>
+                            <DockPanel HorizontalAlignment="Stretch" Margin="20 0">
+                                <ListBox SelectedValuePath="Id" SelectedValue="{Binding SelectedDirectionsListItem}" ItemsSource="{Binding DirectionsList}" Height="120" Width="220">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <DockPanel>
+                                                <Label Content="{Binding Description}"/>
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Button Command="{Binding}" CommandParameter="RemoveDirections" Cursor="Hand" Content="-" Height="60" Width="60" VerticalAlignment="Top" FontSize="35" Padding="0" Style="{StaticResource BlueButton}"/>
+                            </DockPanel>
                         </StackPanel>
                     </Border>
                 </StackPanel>
@@ -102,7 +137,7 @@
             </DockPanel>
 
             <Border CornerRadius="0 0 20 20" Background="{StaticResource Primary}" Grid.Row="2">
-                <Button Content="Add Recipe" FontSize="40" FontWeight="Bold" Foreground="White" Style="{StaticResource Hoverlessbtn}"/>
+                <Button Command="{Binding}" CommandParameter="AddRecipe" Cursor="Hand" Content="Add Recipe" FontSize="40" FontWeight="Bold" Foreground="White" Style="{StaticResource Hoverlessbtn}"/>
             </Border>
         </Grid>
     </Border>

@@ -12,11 +12,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label HorizontalAlignment="Left" Grid.Row="0" FontSize="40" FontWeight="Bold" Foreground="#666" Content="{Binding Username}"/>
-        <Button HorizontalAlignment="Right" Grid.Row="0" Style="{StaticResource BlueButton}" Background="Red" Width="100" Height="45" FontSize="20" Command="{Binding}" CommandParameter="Logout">Logout</Button>
+        <Button Cursor="Hand" HorizontalAlignment="Right" Grid.Row="0" Style="{StaticResource BlueButton}" Background="Red" Width="120" Height="45" FontSize="20" Command="{Binding}" CommandParameter="Logout">🚪 Logout</Button>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center"  Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="35"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="160"/>
             </Grid.RowDefinitions>
             <ProgressBar Grid.Row="0" Height="20" Width="500" Background="White" Foreground="{StaticResource Primary}" Minimum="{Binding Weight1}" Maximum="{Binding Weight2}" Value="{Binding CurrentWeight}"/>
@@ -33,15 +34,39 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Content="Lost so far:"/>
-                <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="Performance:"/>
-                <Label Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Content="Still to go:"/>
-                <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Content="{Binding LostWeightKg}"/>
-                <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Content="{Binding Performance}"/>
-                <Label Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Content="{Binding WeightToGoKg}"/>
+                <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Content="Performance:"/>
+                <Label Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Content="Still to go:"/>
+                <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Content="{Binding Performance}"/>
+                <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Content="{Binding WeightToGoKg}"/>
             </Grid>
+            <Viewbox Grid.Row="4">
+                <DockPanel HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <StackPanel>
+                        <DockPanel>
+                            <StackPanel Margin="10 0">
+                                <Label Content="Current Weight" Style="{StaticResource TextBoxLabel}"/>
+                                <TextBox Style="{StaticResource KGTextBox}" Width="330" Tag="Kg" Text="{Binding Weight}"/>
+                                <Button Cursor="Hand" Content="Set" Width="330" Style="{StaticResource BlueButton}" Command="{Binding}" CommandParameter="SetCurrentWeight"/>
+                            </StackPanel>
+                            <StackPanel Margin="10 0">
+                                <Label Content="Wanted Weight" Style="{StaticResource TextBoxLabel}"/>
+                                <TextBox Style="{StaticResource KGTextBox}" Width="330" Tag="Kg" Text="{Binding WantedWeight}"/>
+                                <Button Cursor="Hand" Content="Set" Width="330" Style="{StaticResource BlueButton}" Command="{Binding}" CommandParameter="SetWantedWeight"/>
+                            </StackPanel>
+                        </DockPanel>
+                        <Button Cursor="Hand" Content="Reset progress" Style="{StaticResource BlueButton}" Width="690" Command="{Binding}" CommandParameter="ResetWeightProgress"/>
+                    </StackPanel>
+                    <StackPanel Margin="10 0" VerticalAlignment="Stretch">
+                        <Label Content="Calories Goal / Day (default:2700)" Style="{StaticResource TextBoxLabel}"/>
+                        <TextBox Style="{StaticResource KGTextBox}" Width="330" Tag="Kcal" Text="{Binding DayGoal}"/>
+                        <Button Cursor="Hand" Content="Set" Width="330" Style="{StaticResource BlueButton}" Command="{Binding}" CommandParameter="SetDayGoal"/>
+                        <StackPanel Margin="0 10">
+                            <Label Content="{Binding SetGoal}" FontSize="30" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </DockPanel>
+            </Viewbox>
         </Grid>
     </Grid>
 </UserControl>

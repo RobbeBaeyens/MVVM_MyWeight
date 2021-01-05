@@ -38,7 +38,7 @@
                     <TextBox Text="{Binding CaloriesDayGoal, Mode=TwoWay}" Width="330" x:Name="txtCaloriesDayGoal" Style="{StaticResource KGTextBox}" Tag="Kcal"></TextBox>
                 </StackPanel>
             </DockPanel>
-            <Button Grid.Row="2" Style="{StaticResource BlueButton}" Command="{Binding}" CommandParameter="Register">Register</Button>
+            <Button Cursor="Hand" Grid.Row="2" Style="{StaticResource BlueButton}" Command="{Binding}" CommandParameter="Register">Register</Button>
         </Grid>
     </Grid>
 </UserControl>

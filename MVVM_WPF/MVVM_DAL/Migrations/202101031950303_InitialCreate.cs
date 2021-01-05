@@ -121,8 +121,8 @@
                         Name = c.String(nullable: false, maxLength: 255),
                         Description = c.String(nullable: false, maxLength: 255),
                         Servings = c.Int(nullable: false),
-                        PrepTime = c.DateTime(nullable: false),
-                        CookTime = c.DateTime(nullable: false),
+                        PrepTime = c.Int(nullable: false),
+                        CookTime = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.RecipeID)
                 .ForeignKey("MyWeight.RecipeCategory", t => t.RecipeCategoryID, cascadeDelete: true)
@@ -180,6 +180,7 @@
                         Username = c.String(nullable: false, maxLength: 20),
                         Password = c.String(nullable: false, maxLength: 255),
                         Weight = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        CurrentWeight = c.Decimal(nullable: false, precision: 18, scale: 2),
                         WantedWeight = c.Decimal(nullable: false, precision: 18, scale: 2),
                         CaloriesDayGoal = c.Int(nullable: false),
                     })

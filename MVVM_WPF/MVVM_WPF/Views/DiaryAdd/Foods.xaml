@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="MVVM_WPF.Views.DiaryAdd.Recipes"
+﻿<UserControl x:Class="MVVM_WPF.Views.DiaryAdd.Foods"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -11,8 +11,8 @@
                 <Label Content="{Binding Date}" Height="60" FontSize="40"/>
                 <ComboBox Cursor="Hand" SelectedItem="{Binding SelectedTimeStamp}" ItemsSource="{Binding Timestamps}" DisplayMemberPath="Name" SelectedValuePath="TimeStampID" Margin="5" FontSize="25" FontWeight="Bold" Foreground="#666"/>
                 <Button Cursor="Hand" Command="{Binding}" CommandParameter="Back" Content="⬅️Back" Style="{StaticResource WhiteButton}" Background="{StaticResource Gray}" Foreground="White" Width="150"/>
-                <Button Cursor="Hand" Content="Recipes" Style="{StaticResource BlueButton}" Width="200"/>
-                <Button Cursor="Hand" Command="{Binding}" CommandParameter="Foods" Content="Food" Style="{StaticResource WhiteButton}" Width="200"/>
+                <Button Cursor="Hand" Command="{Binding}" CommandParameter="Recipes" Content="Recipes" Style="{StaticResource WhiteButton}" Width="200"/>
+                <Button Cursor="Hand" Content="Food" Style="{StaticResource BlueButton}" Width="200"/>
             </StackPanel>
             
             <Rectangle VerticalAlignment="Stretch" Width="3" Margin="10" Stroke="Black" />
@@ -26,21 +26,21 @@
                     <DockPanel HorizontalAlignment="Center">
                         <TextBox Text="{Binding SearchText}" Style="{StaticResource SearchTextBox}"/>
                         <Button Command="{Binding}" CommandParameter="Search" Cursor="Hand" Margin="0" Content="Search" Style="{StaticResource SearchBlueButton}" FontSize="18" Width="80" Height="50"/>
-                        <Button Command="{Binding}" CommandParameter="Edit" Cursor="Hand" Margin="5 0" Content="🖍️" Style="{StaticResource BlueButton}" Background="{StaticResource Red}" FontSize="18" Width="50" Height="50"/>
+                        <Button Command="{Binding}" CommandParameter="Edit" Cursor="Hand" Margin="5 0" Content="🖍️" Style="{StaticResource BlueButton}" FontSize="18" Width="50" Height="50"/>
                         <Button Command="{Binding}" CommandParameter="Add" Cursor="Hand" Margin="0" Content="➕" Style="{StaticResource BlueButton}" FontSize="18" Width="50" Height="50"/>
                     </DockPanel>
-                    <ListBox SelectedItem="{Binding SelectedRecipe}" ItemsSource="{Binding CustomRecipes}" Margin="20 0" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="400">
+                    <ListBox SelectedItem="{Binding SelectedFood}" ItemsSource="{Binding Foods}" Margin="20 0" ScrollViewer.VerticalScrollBarVisibility="Visible" Height="400">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderBrush="{StaticResource Primary}" BorderThickness="2" Width="560"
-                                        ToolTip="{Binding ToolTip}" ToolTipService.ShowDuration="2147483647">
+                                        ToolTip="{Binding ToolTip}">
                                     <StackPanel>
                                         <DockPanel>
                                             <Label Padding="10 2 0 2" FontSize="20" FontWeight="Bold" Content="{Binding Name}"/>
-                                            <Label Padding="10 2 0 2" FontSize="16" Foreground="{StaticResource Primary}" Content="{Binding Description}"/>
+                                            <Label Padding="10 2 0 2" FontSize="16" Foreground="{StaticResource Primary}" Content="{Binding Brand}"/>
                                         </DockPanel>
                                         <DockPanel>
-                                            <Label Padding="10 2 0 2" FontSize="14" Foreground="{StaticResource Green}" Content="{Binding Servings}"/>
+                                            <Label Padding="10 2 0 2" FontSize="14" Foreground="{StaticResource Green}" Content="{Binding Unit}"/>
                                             <Label Padding="10 2 0 2" FontSize="14" Content="{Binding RDI}"/>
                                             <Label Padding="2 2 0 2" FontSize="14" Content="-"/>
                                             <Label Padding="2 2 0 2" FontSize="14" Content="{Binding Calories}"/>
@@ -49,9 +49,14 @@
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
                     </ListBox>
                 </StackPanel>
-                <Button Command="{Binding}" CommandParameter="NewRecipe" Cursor="Hand" Grid.Row="1" Width="500" Content="+ New Recipe" Style="{StaticResource WhiteButton}"/>
+                <Button Command="{Binding}" CommandParameter="NewFood" Cursor="Hand" Grid.Row="1" Width="500" Content="+ New Food" Style="{StaticResource WhiteButton}"/>
             </Grid>
         </DockPanel>
     </Grid>
