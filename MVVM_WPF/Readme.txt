@@ -1,4 +1,5 @@
 Github:			https://github.com/RobbeBaeyens/MVVM_MyWeight
+Github Clone:		https://github.com/RobbeBaeyens/MVVM_MyWeight.git
 
 Korte beschrijving:	Een applicatie waarbij je je eetschema kunt bijhouden.
 			Je kan per dag toevoegen op welk tijdstip je welk eten hebt gegeten.
